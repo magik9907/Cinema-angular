@@ -1,0 +1,23 @@
+<div class="flex">
+  <ng-container *ngFor="let film of films; let i = index">
+    <p-card
+      [header]="film.Title"
+      [subheader]="film.Director || ''"
+      [classList]="film.Id === selectedId ? 'selected' : ''"
+    >
+      Długość: {{ film.Length || 0 | duration }}
+      <ng-template pTemplate="footer">
+        <p-button
+          label="Szczegóły"
+          (onClick)="showDetails(film.Id || '')"
+        ></p-button>
+      </ng-template>
+    </p-card>
+    <app-film-preview
+      (onDelete)="onDelete($event)"
+      [id]="film.Id"
+      *ngIf="selectedId === film.Id"
+      [style]="{ 'flex-basis': '100%' }"
+    ></app-film-preview>
+  </ng-container>
+</div>

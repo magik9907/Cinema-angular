@@ -1,0 +1,35 @@
+<div class="p-field p-col-12 p-md-4">
+  <label for="time">Seanse od od dnia: </label>
+  <p-calendar
+    [ngModel]="Date"
+    (ngModelChange)="changeDate($event)"
+    [showTime]="true"
+    [showSeconds]="true"
+    inputId="time"
+  ></p-calendar>
+</div>
+
+<div class="p-field-checkbox">
+  <input
+    type="checkbox"
+    name="now"
+    inputId="now"
+    appDisable
+    [(ngModel)]="Now"
+  />
+  <label for="now">Seanse od obecnej chwili</label>
+</div>
+
+<div *ngFor="let seans of seanses; let i = index">
+  <h3>{{ seans.Id }}</h3>
+  <div class="flex">
+    <p-card
+      *ngFor="let s of seans.Seanses"
+      [header]="s.Film?.Title || ''"
+      [subheader]="s.Date.Date + ' ' + s.Date.Time"
+    >
+      Czas: {{ (s.Film ? s.Film.Length : 0) | duration }}<br />
+      <a pButton [routerLink]="s.Id">Szczegóły</a>
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="flex">
+  <ng-container *ngFor="let hall of halls; let i = index">
+    <p-card
+      [header]="'Sala nr.: ' + hall.Number"
+      [subheader]="'Pojemność: ' + hall.Capacity || ''"
+    >
+    <a pButton [routerLink]="hall.Id">Szczegóły</a>
+  </p-card>
+  </ng-container>
+</div>

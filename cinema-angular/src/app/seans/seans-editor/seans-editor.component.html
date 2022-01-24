@@ -1,0 +1,114 @@
+<form (ngSubmit)="onSubmit($event, form)" #form="ngForm" *ngIf="seansModel">
+  <div class="p-field p-col-12 p-md-4">
+    <label for="time">Data seansu: </label>
+    <p-calendar
+      [ngModel]="dateModel"
+      [required]="true"
+      [showTime]="true"
+      name="date"
+      inputId="time"
+      [appSeansDateValidator]="seansModel"
+      #date="ngModel"
+      [minDate]="NOW"
+    ></p-calendar>
+    <p class="error" *ngIf="date.errors?.['required']">Pole wymagane</p>
+    <p class="error" *ngIf="date.errors?.['HallRequired']">
+      Sala jest niewybrana
+    </p>
+    <p class="error" *ngIf="date.errors?.['filmRequired']">
+      Film jest niewybrany
+    </p>
+    <p class="error" *ngIf="date.errors?.['required']">Pole wymagane</p>
+    <p class="error" *ngIf="date.errors?.['reservedError']">
+      Powyższa data jest już zarezerwowana dla danej sali
+    </p>
+    <p class="error" *ngIf="date.errors?.['minDate']">
+      Data musi być z przyszłości
+    </p>
+  </div>
+
+  <div class="p-field p-col-12 p-md-3">
+    <label for="horizontal">Cena biletu</label>
+    <p-inputNumber
+      [(ngModel)]="seansModel.Price"
+      [showButtons]="true"
+      buttonLayout="horizontal"
+      inputId="horizontal"
+      spinnerMode="horizontal"
+      name="price"
+      [min]="0"
+      [step]="0.25"
+      decrementButtonClass="p-button-danger"
+      incrementButtonClass="p-button-success"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+      mode="currency"
+      currency="PLN"
+      #price="ngModel"
+      [required]="true"
+    >
+    </p-inputNumber>
+    <p class="error" *ngIf="price.errors?.['required']">Pole wymagane</p>
+    <p class="error" *ngIf="price.errors?.['min']">Minimalna wartość to 0</p>
+  </div>
+
+  <div>
+    <h3>Wybierz film</h3>
+    <p class="error" *ngIf="!seansModel.Film">Film jest wymagany</p>
+    <p-table
+      [value]="films"
+      [(selection)]="seansModel.Film"
+      dataKey="_id"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem"></th>
+          <th>Tytuł</th>
+          <th>Reżyser</th>
+          <th>Długość</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-film>
+        <tr>
+          <td>
+            <p-tableRadioButton [value]="film"></p-tableRadioButton>
+          </td>
+          <td>{{ film.title }}</td>
+          <td>{{ film.director || "" }}</td>
+          <td>{{ film.length |duration}} </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <div>
+    <h3>Wybierz salę</h3>
+    <p class="error" *ngIf="!seansModel.Hall">Sala jest wymagana</p>
+    <p-table
+      [value]="halls"
+      [(selection)]="seansModel.Hall"
+      dataKey="_id"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem"></th>
+          <th>Numer sali</th>
+          <th>pojemność</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-hall>
+        <tr>
+          <td>
+            <p-tableRadioButton [value]="hall"></p-tableRadioButton>
+          </td>
+          <td>{{ hall.number }}</td>
+          <td>{{ hall.capacity || "" }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <button type="submit" pButton>Dodaj</button>
+</form>

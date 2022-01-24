@@ -1,0 +1,4 @@
+<h1>Sala nr: {{ hall?.Number || "" }}</h1>
+<p>Liczba miejsc: {{ hall?.Capacity || "" }}</p>
+<a pButton [routerLink]="'edit'">Edytuj</a>
+  <button pButton (click)="delete()" class="p-button-danger">Usuń</button>

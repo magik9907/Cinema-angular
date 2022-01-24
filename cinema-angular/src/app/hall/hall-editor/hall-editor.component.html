@@ -1,0 +1,61 @@
+<form (ngSubmit)="onSubmit($event, form)" #form="ngForm" *ngIf="hallModel">
+  <div class="p-field p-col-12 p-md-3" [style]="{ marginTop: '15px' }">
+    <label for="horizontal">Numer sali </label>
+    <p-inputNumber
+      name="number"
+      [(ngModel)]="hallModel.Number"
+      [showButtons]="true"
+      buttonLayout="horizontal"
+      inputId="horizontal"
+      spinnerMode="horizontal"
+      [step]="1"
+      [required]="true"
+      [min]="1"
+      [appForbiddenHallNumber]="hall"
+      #number="ngModel"
+      decrementButtonClass="p-button-danger"
+      incrementButtonClass="p-button-success"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+      mode="decimal"
+    >
+    </p-inputNumber>
+    <p class="error" *ngIf="number.errors?.['requestError']">
+      Nastąpił problem z serwerem
+    </p>
+    <p class="error" *ngIf="number.errors?.['hallNumberError']">
+      Numer sali już istnieje
+    </p>
+    <p class="error" *ngIf="number.errors?.['required']">Pole wymagane</p>
+    <p class="error" *ngIf="hallModel.Number < 1">
+      Wartość musi być większa od 0
+    </p>
+  </div>
+  <div class="p-field p-col-12 p-md-3" [style]="{ marginTop: '15px' }">
+    <label for="horizontal">Ilość miejsc </label>
+    <p-inputNumber
+      name="capacity"
+      [(ngModel)]="hallModel.Capacity"
+      [showButtons]="true"
+      buttonLayout="horizontal"
+      inputId="horizontal"
+      spinnerMode="horizontal"
+      [step]="1"
+      [required]="true"
+      [min]="1"
+      #capacity="ngModel"
+      decrementButtonClass="p-button-danger"
+      incrementButtonClass="p-button-success"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+      mode="decimal"
+    >
+    </p-inputNumber>
+    <p class="error" *ngIf="capacity.errors?.['required']">Pole wymagane</p>
+    <p class="error" *ngIf="hallModel.Capacity < 1">
+      Wartość musi być większa od 0
+    </p>
+  </div>
+
+  <button type="submit" pButton>Dodaj</button>
+</form>

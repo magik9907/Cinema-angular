@@ -1,0 +1,21 @@
+<div [style]="{ marginBottom: '15px' }">
+  <a pButton [routerLink]="id + '/edit'" [style]="{ marginRight: '15px' }"
+    >Edytuj</a
+  >
+  <button pButton (click)="delete()" class="p-button-danger">Usuń</button>
+</div>
+<p-calendar
+  [ngModel]="dateRange"
+  (ngModelChange)="changeDate($event)"
+  selectionMode="range"
+  [showTransitionOptions]="'0ms'"
+  [hideTransitionOptions]="'0ms'"
+  dateFormat="yy-mm-dd"
+>
+</p-calendar
+><p-chart
+  *ngIf="basicData"
+  type="line"
+  [data]="basicData"
+  [options]="basicOptions"
+></p-chart>

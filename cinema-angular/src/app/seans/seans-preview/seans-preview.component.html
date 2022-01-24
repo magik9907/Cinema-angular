@@ -1,0 +1,19 @@
+<div *ngIf="seans">
+  <h1>{{ seans.Film?.Title || "" }}</h1>
+  <h3>{{ seans.Film?.Director || "" }}</h3>
+  <p>
+    Seans w dniu: <strong>{{ seans.Date?.Date }} {{ seans.Date?.Time }}</strong>
+  </p>
+  <p>
+    Sala nr: <strong>{{ seans.Hall?.Number || "" }}</strong>
+  </p>
+
+  <p>
+    Cena biletu:
+    <strong>{{ (seans ? seans.Price : 0) | currency: "PLN" }}</strong>
+  </p>
+</div>
+<a pButton [routerLink]="'edit'" *ngIf="checkDate()">Edytuj</a>
+<!-- <button pButton (click)="delete()" class="p-button-danger">Usuń</button> -->
+
+<app-tickets-container *ngIf="seans" [seans]="seans"></app-tickets-container>

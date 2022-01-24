@@ -1,0 +1,11 @@
+<div>
+  Ilość wszystkich miejsc/Ilość zajętych miejsc/Ilość miejsc wolnych:
+  {{ getCapacity() }}/{{ getOccuped() }}/{{ getFree() }}
+</div>
+<div>
+  <app-tickets-purchase
+    *ngIf="tickets"
+    [reserved]="tickets"
+    [seans]="seans"
+  ></app-tickets-purchase>
+</div>

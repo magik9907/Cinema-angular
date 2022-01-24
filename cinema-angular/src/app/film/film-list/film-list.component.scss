@@ -1,0 +1,36 @@
+.flex {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap:20px;
+}
+
+p-card {
+  height: 100%;
+  max-width: 360px;
+  min-width: 360px;
+  width: 100%;
+  height: 220px;
+}
+
+::ng-deep {
+  .selected .p-card {
+    background-color: var(--surface-d);
+  }
+
+  .p-card, .p-card-body {
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+app-film-preview {
+  background-color: var(--surface-d);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 15px;
+  border-radius: 5px;
+}

@@ -1,0 +1,61 @@
+<form (ngSubmit)="onSubmit($event, form)" #form="ngForm" *ngIf="filmModel">
+  <div [style]="{ marginTop: '25px' }">
+    <span class="p-float-label">
+      <input
+        id="float-input"
+        type="text"
+        pInputText
+        [required]="true"
+        [min]="1"
+        #director="ngModel"
+        name="title"
+        [(ngModel)]="filmModel.Title"
+      />
+
+      <label for="float-input">Nazwa filmu</label>
+    </span>
+    <p class="error" *ngIf="director.errors?.['required']">Pole wymagane</p>
+  </div>
+  <div [style]="{ marginTop: '25px' }">
+    <span class="p-float-label">
+      <input
+        id="float-input"
+        type="text"
+        pInputText
+        name="director"
+        [(ngModel)]="filmModel.Director"
+      />
+      <label for="float-input">Reżyser</label>
+    </span>
+  </div>
+
+  <div class="p-field p-col-12 p-md-3" [style]="{ marginTop: '15px' }">
+    <label for="horizontal"
+      >Długość filmu ({{ (filmModel.Length | duration) || "0 minut" }})</label
+    >
+    <p-inputNumber
+      name="duration"
+      [(ngModel)]="filmModel.Length"
+      [showButtons]="true"
+      buttonLayout="horizontal"
+      inputId="horizontal"
+      spinnerMode="horizontal"
+      [step]="1"
+      [required]="true"
+      [min]="1"
+      #duration="ngModel"
+      decrementButtonClass="p-button-danger"
+      incrementButtonClass="p-button-success"
+      incrementButtonIcon="pi pi-plus"
+      decrementButtonIcon="pi pi-minus"
+      mode="decimal"
+    >
+    </p-inputNumber>
+    <p class="error" *ngIf="duration.errors?.['required']">Pole wymagane</p>
+    <p class="error" *ngIf="filmModel.Length < 1">
+      Wartość musi być większa od 0
+    </p>
+  </div>
+
+  <button type="submit" pButton>Dodaj</button>
+</form>

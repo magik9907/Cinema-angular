@@ -1,0 +1,51 @@
+<form (ngSubmit)="submit($event, form)" #form="ngForm" *ngIf="checkDate()">
+  <div>
+    <span class="p-float-label" [style]="{ 'margin-top': '24px' }">
+      <input
+        id="float-input"
+        type="text"
+        pInputText
+        [required]="true"
+        #nameI="ngModel"
+        name="name"
+        [(ngModel)]="name"
+      />
+      <label for="float-input">Imię</label>
+    </span>
+    <p class="error" *ngIf="surnameI.errors?.['required']">Pole wymagane</p>
+  </div>
+  <div>
+    <span class="p-float-label" [style]="{ 'margin-top': '24px' }">
+      <input
+        id="float-input"
+        [required]="true"
+        type="text"
+        pInputText
+        #surnameI="ngModel"
+        name="surname"
+        [(ngModel)]="surname"
+      />
+      <label for="float-input">nazwisko</label>
+    </span>
+    <p class="error" *ngIf="surnameI.errors?.['required']">Pole wymagane</p>
+  </div>
+  <p-pickList
+    [source]="available"
+    [target]="toBuy"
+    sourceHeader="Dostępne miejsca"
+    targetHeader="Wybrane miejsca do kupienia"
+    [style]="{ 'margin-top': '24px' }"
+    [dragdrop]="true"
+    [responsive]="true"
+    [sourceStyle]="{
+      height: '30rem'
+    }"
+    [targetStyle]="{ height: '30rem' }"
+  >
+    <ng-template let-item pTemplate="item">
+      <div>Miejsce nr: {{ item.seatNo }}</div>
+    </ng-template>
+  </p-pickList>
+  <p class="error" *ngIf="toBuy.length == 0">Pole wymagane</p>
+  <button [style]="{ 'margin-top': '24px' }" pButton type="submit">Kup</button>
+</form>
